@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\LoginWithGoogleController;
+use App\Http\Controllers\Auth\LoginWithFacebookController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +31,13 @@ Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::get('/register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register', [RegisterController::class, 'register']);
+
+
+//Socialize Google
+Route::get('authorized/google', [LoginWithGoogleController::class, 'redirectToGoogle']);
+Route::get('authorized/google/callback', [LoginWithGoogleController::class, 'handleGoogleCallback']);
+
+//Socialize Facebook
+Route::get('authorized/facebook',[LoginWithFacebookController::class, 'redirectToFacebook']);
+Route::get('authorized/facebook/callback',[LoginWithFacebookController::class, 'handleFacebookCallback']);
+Route::get('authorized/facebook/remove',[LoginWithFacebookController::class, 'removeFacebookId']);
